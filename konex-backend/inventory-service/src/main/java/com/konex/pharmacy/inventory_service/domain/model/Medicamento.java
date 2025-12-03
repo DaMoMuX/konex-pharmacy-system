@@ -1,4 +1,4 @@
-package com.konex.pharmacy.inventory_service.domain;
+package com.konex.pharmacy.inventory_service.domain.model;
 
 import lombok.*;
 import jakarta.persistence.*;
