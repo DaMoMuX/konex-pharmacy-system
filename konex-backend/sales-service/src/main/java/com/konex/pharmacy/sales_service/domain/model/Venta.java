@@ -1,4 +1,4 @@
-package com.konex.pharmacy.sales_service.domain;
+package com.konex.pharmacy.sales_service.domain.model;
 
 import lombok.*;
 import jakarta.persistence.*;
