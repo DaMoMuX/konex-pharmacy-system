@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/konex-backend/inventory-service/src/main/java/com/konex/pharmacy/inventory_service/application/MedicineService.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/konex-backend/inventory-service/src/main/java/com/konex/pharmacy/inventory_service/application/MedicineService.java" />
+              <option name="originalContent" value="package com.konex.pharmacy.inventory_service.application;&#10;&#10;import com.konex.pharmacy.inventory_service.domain.Medicine;&#10;import java.util.List;&#10;&#10;public interface MedicineService {&#10;    Medicine createMedicine(Medicine medicine);&#10;    Medicine getMedicineById(Long id);&#10;    Medicine updateMedicine(Long id, Medicine medicine);&#10;    void deleteMedicine(Long id);&#10;    List&lt;Medicine&gt; listAllMedicines();&#10;}&#10;" />
+              <option name="updatedContent" value="package com.konex.pharmacy.inventory_service.application;&#10;&#10;import com.konex.pharmacy.inventory_service.domain.Medicine;&#10;import java.util.List;&#10;&#10;public interface MedicineService {&#10;    Medicine createMedicine(Medicine medicine);&#10;    Medicine getMedicineById(Long id);&#10;    Medicine updateMedicine(Long id, Medicine medicine);&#10;    void deleteMedicine(Long id);&#10;    List&lt;Medicine&gt; listAllMedicines();&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
