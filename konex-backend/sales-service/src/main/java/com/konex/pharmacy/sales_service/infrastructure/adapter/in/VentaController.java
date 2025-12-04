@@ -1,0 +1,35 @@
+package com.konex.pharmacy.sales_service.infrastructure.adapter.in;
+
+import com.konex.pharmacy.sales_service.application.port.in.VentaUseCase;
+import com.konex.pharmacy.sales_service.domain.model.Venta;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+
+@RestController
+@RequestMapping("/ventas")
+public class VentaController {
+
+    private final VentaUseCase useCase;
+
+    public VentaController(VentaUseCase useCase) {
+        this.useCase = useCase;
+    }
+
+    @PostMapping
+    public Venta create(@RequestBody Venta venta) {
+        return useCase.crearVenta(venta);
+    }
+
+    @GetMapping
+    public Page<Venta> listar(@RequestParam(value = "desde", required = false) LocalDateTime desde,
+                              @RequestParam(value = "hasta", required = false) LocalDateTime hasta,
+                              Pageable pageable) {
+        if (desde != null && hasta != null) {
+            return useCase.filtrarPorFechaPaginado(desde, hasta, pageable);
+        }
+        return useCase.listarVentasPaginado(pageable);
+    }
+}

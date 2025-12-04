@@ -19,7 +19,7 @@ public class Venta {
     private LocalDateTime fechaHora;
 
     @NotBlank
-    private Long idMedicamento;
+    private Long medicamentoId;
 
     @Positive
     private Integer cantidad;
