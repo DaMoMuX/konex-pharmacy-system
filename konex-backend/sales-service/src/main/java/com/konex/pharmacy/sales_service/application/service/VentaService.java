@@ -24,12 +24,15 @@ public class VentaService implements VentaUseCase {
 
     @Override
     public Venta crearVenta(Venta venta) {
-        var medicamento = inventoryClientPort.descontarStockYObtenerDatos(venta.getMedicamentoId(), venta.getCantidad());
-
-        venta.setFechaHora(LocalDateTime.now());
-        venta.setValorUnitario(medicamento.getValorUnitario());
-        venta.setValorTotal(venta.getValorUnitario() * venta.getCantidad());
-        return ventaRepositoryPort.save(venta);
+        try {
+            var medicamento = inventoryClientPort.descontarStockYObtenerDatos(venta.getMedicamentoId(), venta.getCantidad());
+            venta.setFechaHora(LocalDateTime.now());
+            venta.setValorUnitario(medicamento.getValorUnitario());
+            venta.setValorTotal(medicamento.getValorUnitario() * venta.getCantidad());
+            return ventaRepositoryPort.save(venta);
+        } catch (RuntimeException e) {
+            throw e;
+        }
     }
 
     @Override

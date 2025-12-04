@@ -4,9 +4,11 @@ import com.konex.pharmacy.sales_service.application.port.in.VentaUseCase;
 import com.konex.pharmacy.sales_service.domain.model.Venta;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/ventas")
@@ -19,8 +21,13 @@ public class VentaController {
     }
 
     @PostMapping
-    public Venta create(@RequestBody Venta venta) {
-        return useCase.crearVenta(venta);
+    public ResponseEntity<?> create(@RequestBody Venta venta) {
+        try {
+            Venta saved = useCase.crearVenta(venta);
+            return ResponseEntity.ok(saved);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(409).body(Map.of("error", e.getMessage()));
+        }
     }
 
     @GetMapping

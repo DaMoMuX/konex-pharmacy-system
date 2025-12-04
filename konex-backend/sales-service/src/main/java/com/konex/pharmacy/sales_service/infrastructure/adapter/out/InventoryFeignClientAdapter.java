@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "inventory-service")
+@FeignClient(name = "INVENTORY-SERVICE")
 interface FeignInventoryApi {
     @PutMapping("/medicamentos/{id}/descontar-stock")
     MedicamentoDto descontarStock(@PathVariable("id") Long medicamentoId, @RequestParam("cantidad") int cantidad);
@@ -25,6 +25,11 @@ public class InventoryFeignClientAdapter implements InventoryClientPort {
 
     @Override
     public MedicamentoDto descontarStockYObtenerDatos(Long medicamentoId, int cantidad) {
-        return feignInventoryApi.descontarStock(medicamentoId, cantidad);
+        try {
+            System.out.println("Descontando stock del medicamento ID: " + medicamentoId + " en cantidad: " + cantidad);
+            return feignInventoryApi.descontarStock(medicamentoId, cantidad);
+        } catch (feign.FeignException.Conflict ex) {
+            throw new RuntimeException("Stock insuficiente para el medicamento");
+        }
     }
 }

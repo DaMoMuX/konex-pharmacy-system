@@ -1,6 +1,7 @@
 package com.konex.pharmacy.inventory_service.infrastructure.adapter.in;
 
 import com.konex.pharmacy.inventory_service.application.port.in.MedicamentoUseCase;
+import com.konex.pharmacy.inventory_service.domain.exception.StockInsuficienteException;
 import com.konex.pharmacy.inventory_service.domain.model.Medicamento;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -45,9 +46,10 @@ public class MedicamentoController {
     @PutMapping("/{id}/descontar-stock")
     public ResponseEntity<Medicamento> descontarStock(@PathVariable Long id, @RequestParam int cantidad) {
         try {
-            return ResponseEntity.ok(useCase.descontarStock(id, cantidad));
-        } catch (Exception ex) {
-            return ResponseEntity.badRequest().body(null);
+            Medicamento result = useCase.descontarStock(id, cantidad);
+            return ResponseEntity.ok(result);
+        } catch (StockInsuficienteException e) {
+            return ResponseEntity.status(409).body(null);
         }
     }
 }

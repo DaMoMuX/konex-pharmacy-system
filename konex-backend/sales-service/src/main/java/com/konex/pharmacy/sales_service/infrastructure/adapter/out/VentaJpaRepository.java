@@ -14,7 +14,6 @@ interface SpringDataVentaRepository extends JpaRepository<Venta, Long> {
     Page<Venta> findByFechaHoraBetween(LocalDateTime desde, LocalDateTime hasta, Pageable pageable);
 }
 
-// Adapter OUT
 @Component
 public class VentaJpaRepository implements VentaRepositoryPort {
 

@@ -2,6 +2,7 @@ package com.konex.pharmacy.inventory_service.application.service;
 
 import com.konex.pharmacy.inventory_service.application.port.in.MedicamentoUseCase;
 import com.konex.pharmacy.inventory_service.application.port.out.MedicamentoRepositoryPort;
+import com.konex.pharmacy.inventory_service.domain.exception.StockInsuficienteException;
 import com.konex.pharmacy.inventory_service.domain.model.Medicamento;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -46,7 +47,7 @@ public class MedicamentoService implements MedicamentoUseCase {
         Medicamento medicamento = medicamentoRepositoryPort.findById(id)
                 .orElseThrow(() -> new RuntimeException("Medicamento no encontrado"));
         if (medicamento.getCantidadStock() < cantidad) {
-            throw new RuntimeException("Stock insuficiente");
+            throw new StockInsuficienteException("Stock insuficiente para el medicamento: " + medicamento.getNombre());
         }
         medicamento.setCantidadStock(medicamento.getCantidadStock() - cantidad);
         return medicamentoRepositoryPort.save(medicamento);
